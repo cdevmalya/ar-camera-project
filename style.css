@@ -28,6 +28,22 @@ html, body{
     bottom: 30px;
     left: calc(50% - 100px);
 }
+
+#test--image{
+    width: 400px;
+    background-color: none;
+    color: none;
+    font-size: none;
+    border-radius: none;
+    border: none;
+    padding: none;
+    text-align: center;
+    box-shadow: none;
+    position: fixed;
+    bottom: 60px;
+    left: calc(50% - 200px);
+}
+
 .taken{
     height: 100px!important;
     width: 100px!important;
