@@ -8,12 +8,12 @@ html, body{
     position: fixed;
     height: auto;
     width: 100%;
-    object-fit: cover;
-    /* object-fit: contain; */
+    /* object-fit: cover; */
+    object-fit: contain;
 }
 #video, #canvas{
     transform: scaleX(1);
-    filter: FlipH;
+    /* filter: FlipH; */
 }
 
 #test--image{
@@ -26,9 +26,8 @@ html, body{
     padding: none;
     text-align: center;
     box-shadow: none;
-    position: fixed;
-    transform: rotate(0.5turn);
-    /* transform: matrix(1, 2, 3, 4, 5, 6); */
-    bottom: 60px;
-    left: calc(50% - 200px);
+    /* position: fixed; */
+    /* transform: rotate(0.5turn); */
+    /* bottom: 60px; */
+    /* left: calc(50% - 200px); */
 }

@@ -11,15 +11,16 @@
     <script type="text/javascript" src="aruco.js"></script> 
     <!-- Link to your main style sheet-->
     <link rel="stylesheet" href="style.css">
-    <!-- Add imgage to camera -->
-    <!-- <img src="test.png" alt="" id="test--image"> -->
-
     <script>
-        var my_video, my_canvas, context, imageData, detector;
+        var my_video, my_canvas, context, image, imageData, detector;
           function onLoad() {
               my_video = document.getElementById("video");
               my_canvas = document.getElementById("canvas");
               context = my_canvas.getContext("2d");
+
+              image = new Image();
+              image.src = "https://picsum.photos/id/237/200/300";
+              image.crossOrigin = "Anonymous";
 
               my_canvas.style.width = window.innerWidth + "px";
               my_canvas.style.height = window.innerHeight + "px";
@@ -43,19 +44,21 @@
               detector = new AR.Detector();
               
               requestAnimationFrame(tick);
+            //   setInterval(() => requestAnimationFrame(tick), 50);
           }
   
           function tick(){
               requestAnimationFrame(tick);
+            //   setInterval(() => requestAnimationFrame(tick), 50); 
               if (my_video.readyState === my_video.HAVE_ENOUGH_DATA){
-                  snapshot();
-                  context.strokeRect(20,20, 100, 100);
-  
-                  var markers = detector.detect(imageData);
-                  
-                  drawCorners(markers);
-                  //   drawImage(markers);
-                  // drawId(markers);
+                snapshot();
+                // context.strokeRect(20,20, 100, 100);
+
+                var markers = detector.detect(imageData);
+                
+                drawCorners(markers);
+                // drawImg(markers);
+                //   drawId(markers);
               }
           }
           
@@ -66,6 +69,8 @@
   
           function drawCorners(markers){
               let corners, corner, i, j;
+
+              context.strokeRect(20,20, 150, 100);
       
               context.lineWidth = 3;
   
@@ -87,25 +92,24 @@
               
               context.strokeStyle = "green";
               context.strokeRect(corners[0].x - 2, corners[0].y - 2, 40, 40);
+              context.drawImage(image,corners[0].x - 2, corners[0].y - 2);
             }
           }
   
-          // function drawImage(markers){
-          //   var img = document.getElementById("test--image");
-          //   context.drawImage(img,10,10);
-          // }
+          function drawImg(markers){
+            context.drawImage(image,10,10);
+          }
           window.onload = onLoad;
       </script>
 
 </head>
 
 <body>
-    
     <!-- Camera view -->
     <video id="video" autoplay playsinline></video>
     <!-- <video id="video" autoplay="true" style="display:none;" ></video> -->
     <!-- Camera sensor -->
-    <canvas id="canvas" style="width:640px; height:480px;"></canvas>
-    <!-- <canvas id="canvas"></canvas> -->
+    <!-- <canvas id="canvas" style="width:640px; height:480px;"></canvas> -->
+    <canvas id="canvas"></canvas>
 </body>
 </html>
