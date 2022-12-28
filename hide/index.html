@@ -7,6 +7,14 @@
     <title>Camera App</title>
     <!-- Link to your main style sheet-->
     <link rel="stylesheet" href="style.css">
+
+    <!-- Reference to your JavaScript file -->
+    <script src="cv.js"></script>
+    <script src="aruco.js"></script>
+    <script src="svd.js"></script>
+    <script src="posit1.js"></script>
+    <script type="text/javascript" src="libs/polyfill.js"></script> 
+
 </head>
 <body>
     <!-- Camera -->
@@ -22,11 +30,104 @@
         <!-- Add imgage to camera -->
         <img src="test.png" alt="testing" id="test--image">
     </main>
-    <!-- Reference to your JavaScript file -->
     <script src="app.js"></script>
-    <script src="aruco_test.js"></script>
+
+    <script>
+        let video, canvas, context, imageData, detector;
+        function onLoad() {
+            detector = new AR.Detector();
+            video = document.getElementById("camera--view");
+            canvas = document.getElementById("camera--sensor");
+            context = canvas.getContext("2d");
+            imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+            let markers = detector.detect(imageData);
+
+            setInterval(() => requestAnimationFrame(tick), 5); //5 ms run time-interval
+        }
+
+        function tick(){
+            setInterval(() => requestAnimationFrame(tick), 5); //5 ms run time-interval
+            
+            if (video.readyState === video.HAVE_ENOUGH_DATA){
+                snapshot();
+
+                let markers = detector.detect(imageData);
+                drawCorners(markers);
+                drawId(markers);
+            }
+        }
+
+        function snapshot(){
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+        }
+
+        // drawCorners(markers);
+
+        function drawCorners(markers){
+            let corners, corner, i, j;
+    
+            context.lineWidth = 3;
+
+            for (i = 0; i !== markers.length; ++ i){
+                corners = markers[i].corners;
+        
+                context.strokeStyle = "red";
+                context.beginPath();
+            
+            for (j = 0; j !== corners.length; ++ j){
+            corner = corners[j];
+            context.moveTo(corner.x, corner.y);
+            corner = corners[(j + 1) % corners.length];
+            context.lineTo(corner.x, corner.y);
+            }
+
+            context.stroke();
+            context.closePath();
+            
+            context.strokeStyle = "green";
+            context.strokeRect(corners[0].x - 2, corners[0].y - 2, 4, 4);
+      }
+    }
+
+    function drawId(markers){
+      let corners, corner, x, y, i, j;
+      
+      context.strokeStyle = "blue";
+      context.lineWidth = 4;
+      
+      for (i = 0; i !== markers.length; ++ i){
+        corners = markers[i].corners;
+        
+        x = Infinity;
+        y = Infinity;
+        
+        for (j = 0; j !== corners.length; ++ j){
+          corner = corners[j];
+          
+          x = Math.min(x, corner.x);
+          y = Math.min(y, corner.y);
+        }
+
+        context.strokeText(markers[i].id, x, y)
+      }
+    }
+
+    window.onload = onLoad;
+
+        // let posit = new POS.Posit(modelSize, canvas.width);
+
+        // let corners = marker.corners;
+
+
+        // let pose = posit.pose(corners);
+
+        // for (let i = 0; i < corners.length; ++ i){
+        // let corner = corners[i];
+        // corner.x = corner.x - (canvas.width / 2);
+        // corner.y = (canvas.height / 2) - corner.y;
+        // }
+    </script>
+
 </body>
-
-
-
 </html>
