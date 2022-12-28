@@ -42,11 +42,15 @@
             imageData = context.getImageData(0, 0, canvas.width, canvas.height);
             let markers = detector.detect(imageData);
 
-            setInterval(() => requestAnimationFrame(tick), 5); //5 ms run time-interval
+            requestAnimationFrame(tick)
+
+            // setInterval(() => requestAnimationFrame(tick), 5); //5 ms run time-interval
         }
 
         function tick(){
-            setInterval(() => requestAnimationFrame(tick), 5); //5 ms run time-interval
+            requestAnimationFrame(tick)
+
+            // setInterval(() => requestAnimationFrame(tick), 5); //5 ms run time-interval
             
             if (video.readyState === video.HAVE_ENOUGH_DATA){
                 snapshot();

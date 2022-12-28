@@ -11,39 +11,93 @@
     <script type="text/javascript" src="aruco.js"></script> 
     <!-- Link to your main style sheet-->
     <link rel="stylesheet" href="style.css">
-
-    <script>
-        var video, canvas, context, imageData, detector;
-    </script>
+    <!-- Add imgage to camera -->
+    <!-- <img src="test.png" alt="" id="test--image"> -->
 </head>
 
 <body>
     <!-- Camera sensor -->
-    <canvas id="camera--sensor"></canvas>
+    <canvas id="canvas" style="width:640px; height:480px;"></canvas>
     <!-- Camera view -->
-    <video id="camera--view" autoplay playsinline></video>
-    <!-- Add imgage to camera -->
-    <img src="test.png" alt="testing" id="test--image">
+    <video id="video" autoplay playsinline></video>
 
     <script>
-        // Set constraints for the video stream
-        var constraints = { video: { facingMode: "environment" }, audio: false };
-        // Define constants
-        const cameraView = document.querySelector("#camera--view"),
-            cameraSensor = document.querySelector("#camera--sensor")
-        // Access the device camera and stream to cameraView
-        function cameraStart() {
-            navigator.mediaDevices
-                .getUserMedia(constraints)
-                .then(function(stream) {
-                track = stream.getTracks()[0];
-                cameraView.srcObject = stream;
-            })
-            .catch(function(error) {
-                console.error("Oops. Something is broken.", error);
-            });
+      // let video, canvas, context, imageData, detector;
+      var context, imageData, detector;
+        function onLoad() {
+            video = document.getElementById("video");
+            canvas = document.getElementById("canvas");
+            context = canvas.getContext("2d");
+            canvas.width = parseInt(canvas.style.width);
+            canvas.height = parseInt(canvas.style.height);
+
+            // Set constraints for the video stream
+            var constraints = { video: { facingMode: "environment" }, audio: false };
+            function cameraStart() {
+                navigator.mediaDevices
+                    .getUserMedia(constraints)
+                    .then(function(stream) {
+                    track = stream.getTracks()[0];
+                    video.srcObject = stream;
+                })
+                .catch(function(error) {
+                    console.error("Oops. Something is broken.", error);
+                });
+            }
+            cameraStart();
+            detector = new AR.Detector();
+            requestAnimationFrame(tick)
         }
-        window.addEventListener("load", cameraStart, false);
+
+        function tick(){
+          requestAnimationFrame(tick)
+          
+          if (video.readyState === video.HAVE_ENOUGH_DATA){
+              snapshot();
+
+              var markers = detector.detect(imageData);
+              drawCorners(markers);
+            //   drawImage(markers);
+              // drawId(markers);
+          }
+        }
+        
+        function snapshot(){
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+        }
+
+        function drawCorners(markers){
+            let corners, corner, i, j;
+    
+            context.lineWidth = 3;
+
+            for (i = 0; i !== markers.length; ++ i){
+                corners = markers[i].corners;
+        
+                context.strokeStyle = "red";
+                context.beginPath();
+            
+            for (j = 0; j !== corners.length; ++ j){
+            corner = corners[j];
+            context.moveTo(corner.x, corner.y);
+            corner = corners[(j + 1) % corners.length];
+            context.lineTo(corner.x, corner.y);
+            }
+
+            context.stroke();
+            context.closePath();
+            
+            context.strokeStyle = "green";
+            context.strokeRect(corners[0].x - 2, corners[0].y - 2, 4, 4);
+          }
+        }
+
+        // function drawImage(markers){
+        //   var img = document.getElementById("test--image");
+        //   context.drawImage(img,10,10);
+        // }
+        window.onload = onLoad;
     </script>
 </body>
 </html>
