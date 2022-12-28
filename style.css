@@ -4,13 +4,13 @@ html, body{
   height: 100%;
   width: 100%;
 }
-#camera, #video, #canvas, #camera--output{
+#camera, #video, #canvas{
     position: fixed;
     height: 100%;
     width: 100%;
     object-fit: cover;
 }
-#video, #canvas, #camera--output{
+#video, #canvas{
     transform: scaleX(1);
     filter: FlipH;
 }

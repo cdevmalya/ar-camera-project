@@ -20,8 +20,11 @@
               video = document.getElementById("video");
               canvas = document.getElementById("canvas");
               context = canvas.getContext("2d");
-              canvas.width = parseInt(canvas.style.width);
-              canvas.height = parseInt(canvas.style.height);
+            //   canvas.width = parseInt(canvas.style.width);
+            //   canvas.height = parseInt(canvas.style.height);
+
+              canvas.width = window.innerWidth;
+              canvas.height = window.innerHeight;
   
               // Set constraints for the video stream
               var constraints = { video: { facingMode: "environment" }, audio: false };
@@ -97,10 +100,12 @@
 </head>
 
 <body>
+    
     <!-- Camera view -->
     <video id="video" autoplay playsinline></video>
     <!-- <video id="video" autoplay="true" style="display:none;" ></video> -->
     <!-- Camera sensor -->
-    <canvas id="canvas" style="width:640px; height:480px;"></canvas>
+    <!-- <canvas id="canvas" style="width:640px; height:480px;"></canvas> -->
+    <canvas id="canvas"></canvas>
 </body>
 </html>
