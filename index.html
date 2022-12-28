@@ -15,16 +15,16 @@
     <!-- <img src="test.png" alt="" id="test--image"> -->
 
     <script>
-        var video, canvas, context, imageData, detector;
+        var my_video, my_canvas, context, imageData, detector;
           function onLoad() {
-              video = document.getElementById("video");
-              canvas = document.getElementById("canvas");
-              context = canvas.getContext("2d");
-            //   canvas.width = parseInt(canvas.style.width);
-            //   canvas.height = parseInt(canvas.style.height);
+              my_video = document.getElementById("video");
+              my_canvas = document.getElementById("canvas");
+              context = my_canvas.getContext("2d");
 
-              canvas.width = window.innerWidth;
-              canvas.height = window.innerHeight;
+              my_canvas.style.width = window.innerWidth + "px";
+              my_canvas.style.height = window.innerHeight + "px";
+              my_canvas.width = parseInt(my_canvas.style.width);
+              my_canvas.height = parseInt(my_canvas.style.height);
   
               // Set constraints for the video stream
               var constraints = { video: { facingMode: "environment" }, audio: false };
@@ -33,7 +33,7 @@
                       .getUserMedia(constraints)
                       .then(function(stream) {
                       track = stream.getTracks()[0];
-                      video.srcObject = stream;
+                      my_video.srcObject = stream;
                   })
                   .catch(function(error) {
                       console.error("Oops. Something is broken.", error);
@@ -47,7 +47,7 @@
   
           function tick(){
               requestAnimationFrame(tick);
-              if (video.readyState === video.HAVE_ENOUGH_DATA){
+              if (my_video.readyState === my_video.HAVE_ENOUGH_DATA){
                   snapshot();
                   context.strokeRect(20,20, 100, 100);
   
@@ -60,8 +60,8 @@
           }
           
           function snapshot(){
-              context.drawImage(video, 0, 0, canvas.width, canvas.height);
-              imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+              context.drawImage(my_video, 0, 0, my_canvas.width, my_canvas.height);
+              imageData = context.getImageData(0, 0, my_canvas.width, my_canvas.height);
           }
   
           function drawCorners(markers){
@@ -105,7 +105,7 @@
     <video id="video" autoplay playsinline></video>
     <!-- <video id="video" autoplay="true" style="display:none;" ></video> -->
     <!-- Camera sensor -->
-    <!-- <canvas id="canvas" style="width:640px; height:480px;"></canvas> -->
-    <canvas id="canvas"></canvas>
+    <canvas id="canvas" style="width:640px; height:480px;"></canvas>
+    <!-- <canvas id="canvas"></canvas> -->
 </body>
 </html>
