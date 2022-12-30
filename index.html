@@ -17,14 +17,20 @@
               my_video = document.getElementById("video");
               my_canvas = document.getElementById("canvas");
               context = my_canvas.getContext("2d");
-            //   my_canvas2 = document.getElementById("canvas2");
-            //   context2 = my_canvas2.getContext("2d");
+              my_canvas2 = document.getElementById("canvas2");
+              context2 = my_canvas2.getContext("2d");
+
+              context2.transform(1, 0.2, 0.8, 1, 0, 0);
+              context2.strokeStyle = "black";
+            //   context2.strokeRect(10,10, 100, 100);
 
             //   image = new Image();
               image = document.createElement('img');
               image.src = "https://picsum.photos/id/237/200/300";
               image.crossOrigin = "Anonymous"; //to ignore image cross contamination error
             
+              
+
               // make a square canvas - depending on the smaller of the window width or height
               if (window.innerWidth > window.innerHeight ){
                 width = window.innerHeight;
@@ -72,14 +78,13 @@
                 var markers = detector.detect(imageData);
                 
                 drawCorners(markers);
-                // drawImg(markers);
-                //   drawId(markers);
               }
           }
           
           function snapshot(){
               context.drawImage(my_video, 0, 0, my_canvas.width, my_canvas.height); //this can be used to fix the elongation currently its covering the window screen which makes the image longer
               imageData = context.getImageData(0, 0, my_canvas.width, my_canvas.height);
+              
           }
   
           function drawCorners(markers){
@@ -108,15 +113,8 @@
               context.strokeStyle = "green";
               context.strokeRect(corners[0].x - 2, corners[0].y - 2, 40, 40);
               context.drawImage(image,corners[0].x - 2, corners[0].y - 2);
-            //   context2.strokeStyle = "black";
-            //   context2.strokeRect(10,10, 100, 100);
+              context2.drawImage(image,10,10);
             }
-          }
-  
-          function drawImg(markers){
-            let img = document.getElementById('image')
-            img.style.transform = 'rotate(90deg)';
-            context.drawImage(img,10,10);
           }
           window.onload = onLoad;
       </script>
@@ -126,11 +124,10 @@
     <!-- Camera view -->
     <!-- <video id="video" autoplay playsinline hidden></video> -->
     <video id="video" autoplay playsinline></video>
-    <!-- <video id="video" autoplay="true" style="display:none;" ></video> -->
     <!-- Camera sensor -->
     <!-- <canvas id="canvas" style="width:640px; height:480px;"></canvas> -->
     <canvas id="canvas" style="z-index: 1; position:absolute; left:0px; top:0px;"></canvas>
-    <canvas id="canvas2" style="z-index: 2; position:absolute; left:0px; top:0px; width:640px; height:480px;"></canvas>
+    <canvas id="canvas2" style="z-index: 2; position:absolute; left:0px; top:0px;" width="640px" height="480px"></canvas>
     
 </body>
 </html>
