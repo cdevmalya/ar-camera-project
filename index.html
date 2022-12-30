@@ -27,13 +27,13 @@
             
               // make a square canvas - depending on the smaller of the window width or height
               if (window.innerWidth > window.innerHeight ){
-                width = window.innerHeight + "px";
+                width = window.innerHeight;
               } else{
-                width = window.innerWidth + "px";
+                width = window.innerWidth;
               }
 
-              my_canvas.style.width = width;
-              my_canvas.style.height = width;
+              my_canvas.style.width = width + "px";
+              my_canvas.style.height = 1.3*width  + "px";
 
               my_canvas.width = parseInt(my_canvas.style.width);
               my_canvas.height = parseInt(my_canvas.style.height);
