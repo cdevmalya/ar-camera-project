@@ -22,6 +22,9 @@
 
               context2.transform(1, 0.2, 0.8, 1, 0, 0);
               context2.strokeStyle = "black";
+              context2.font = "60px serif";
+            //   context2.textAlign = "left";
+            //   context2.textBaseline = "top";
             //   context2.strokeRect(10,10, 100, 100);
 
             //   image = new Image();
@@ -29,8 +32,6 @@
               image.src = "https://picsum.photos/id/237/200/300";
               image.crossOrigin = "Anonymous"; //to ignore image cross contamination error
             
-              
-
               // make a square canvas - depending on the smaller of the window width or height
               if (window.innerWidth > window.innerHeight ){
                 width = window.innerHeight;
@@ -41,11 +42,14 @@
               my_canvas.style.width = width + "px";
               my_canvas.style.height = 1.3*width  + "px";
 
+            //   my_canvas.style.width = width;
+            //   my_canvas.style.height = 1.3*width;
+
               my_canvas.width = parseInt(my_canvas.style.width);
               my_canvas.height = parseInt(my_canvas.style.height);
 
-            //   my_canvas2.style.width = window.innerWidth + "px";
-            //   my_canvas2.style.height = window.innerHeight + "px";
+            //   my_canvas2.style.width = width;
+            //   my_canvas2.style.height = 1.3*width;
             //   my_canvas2.width = parseInt(my_canvas2.style.width);
             //   my_canvas2.height = parseInt(my_canvas2.style.height);
   
@@ -110,10 +114,12 @@
               context.stroke();
               context.closePath();
               
-              context.strokeStyle = "green";
-              context.strokeRect(corners[0].x - 2, corners[0].y - 2, 40, 40);
-              context.drawImage(image,corners[0].x - 2, corners[0].y - 2);
-              context2.drawImage(image,10,10);
+            //   context.strokeStyle = "green";
+            //   context.strokeRect(corners[0].x - 2, corners[0].y - 2, 40, 40);
+            //   context.drawImage(image,corners[0].x - 2, corners[0].y - 2);
+            //   context2.drawImage(image,10,10);
+              context2.clearRect(0,0,my_canvas2.width,my_canvas2.height);
+              context2.fillText("Hello and Welcome!",corners[3].x-2, corners[3].y-2);
             }
           }
           window.onload = onLoad;
@@ -127,7 +133,7 @@
     <!-- Camera sensor -->
     <!-- <canvas id="canvas" style="width:640px; height:480px;"></canvas> -->
     <canvas id="canvas" style="z-index: 1; position:absolute; left:0px; top:0px;"></canvas>
-    <canvas id="canvas2" style="z-index: 2; position:absolute; left:0px; top:0px;" width="640px" height="480px"></canvas>
-    
+    <canvas id="canvas2" style="z-index: 2; position:absolute; left:0px; top:0px;" width="960px" height="800px"></canvas>
+    <!-- <canvas id="canvas2" style="z-index: 2; position:absolute; left:0px; top:0px;"></canvas> -->
 </body>
 </html>
