@@ -23,7 +23,7 @@
             //   context2.transform(1, 0.2, 0.8, 1, 0, 0);
               context2.strokeStyle = "black";
               context2.font = "24px serif";
-              context2.textAlign = "center";
+
 
               // make a square canvas - depending on the smaller of the window width or height
               if (window.innerWidth > window.innerHeight ){
@@ -115,6 +115,7 @@
             }
             context2.setTransform(1, 0, 0, 1, 0, 0);
             context2.clearRect(0,0,my_canvas2.width,my_canvas2.height);
+            context2.textAlign = "center";
             context2.fillText("Hello there!",(markers[0].corners[3].x + markers[1].corners[3].x)/2 , markers[0].corners[3].y);
             context2.fillText("This is a test.",(markers[0].corners[3].x + markers[1].corners[3].x)/2, markers[0].corners[3].y + 30);
             context2.fillText("Let us see if it works",(markers[0].corners[3].x + markers[1].corners[3].x)/2, markers[0].corners[3].y + 60);
