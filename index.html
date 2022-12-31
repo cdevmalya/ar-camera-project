@@ -87,29 +87,36 @@
               context.lineWidth = 3;
   
               for (i = 0; i !== markers.length; ++ i){
-                  corners = markers[i].corners;
-                  context.strokeStyle = "red";
-                  context.beginPath();
+                corners = markers[i].corners;
+                context.strokeStyle = "red";
+                context.beginPath();
               
-              for (j = 0; j !== corners.length; ++ j){
-              corner = corners[j];
-              context.moveTo(corner.x, corner.y);
-              corner = corners[(j + 1) % corners.length];
-              context.lineTo(corner.x, corner.y);
-              }
-  
-              context.stroke();
-              context.closePath();
-              
-            //   context.strokeStyle = "green";
-            //   context.strokeRect(corners[0].x - 2, corners[0].y - 2, 40, 40);
-            //   context.drawImage(image,corners[0].x - 2, corners[0].y - 2);
-            //   context2.drawImage(image,10,10);
-            //   context2.translate(corners[3].x, corners[3].y); //checking if changing origin of canvas fixed transform offset
-              context2.setTransform(1, 0, 0, 1, 0, 0);
-              context2.clearRect(0,0,my_canvas2.width,my_canvas2.height);
-              context2.fillText("Hello and Welcome!",corners[3].x, corners[3].y);
+                for (j = 0; j !== corners.length; ++ j){
+                corner = corners[j];
+                context.moveTo(corner.x, corner.y);
+                corner = corners[(j + 1) % corners.length];
+                context.lineTo(corner.x, corner.y);
+                }
+    
+                context.stroke();
+                context.closePath();
+                
+                //   context.strokeStyle = "green";
+                //   context.strokeRect(corners[0].x - 2, corners[0].y - 2, 40, 40);
+                //   context.drawImage(image,corners[0].x - 2, corners[0].y - 2);
+                //   context2.drawImage(image,10,10);
+                //   context2.translate(corners[3].x, corners[3].y); //checking if changing origin of canvas fixed transform offset
+                // context2.setTransform(1, 0, 0, 1, 0, 0);
+                // context2.clearRect(0,0,my_canvas2.width,my_canvas2.height);
+                // context2.fillText("Hello there!",corners[3].x, corners[3].y);
+                // context2.fillText("This is a test.",corners[3].x, corners[3].y + 30);
+                // context2.fillText("Let us see if it works",corners[3].x, corners[3].y + 60);
             }
+            context2.setTransform(1, 0, 0, 1, 0, 0);
+            context2.clearRect(0,0,my_canvas2.width,my_canvas2.height);
+            context2.fillText("Hello there!",markers[0].corners[3].x, markers[0].corners[3].y);
+            context2.fillText("This is a test.",markers[0].corners[3].x, markers[0].corners[3].y + 30);
+            context2.fillText("Let us see if it works",markers[0].corners[3].x, markers[0].corners[3].y + 60);
           }
           window.onload = onLoad;
       </script>
