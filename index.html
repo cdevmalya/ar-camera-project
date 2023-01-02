@@ -113,13 +113,16 @@
                 // context2.fillText("This is a test.",corners[3].x, corners[3].y + 30);
                 // context2.fillText("Let us see if it works",corners[3].x, corners[3].y + 60);
             }
-            // context2.setTransform(1, 0, 0, 1, 0, 0);
-            context2.setTransform(0, 1, -1, 0, 0, 0);
+            context2.setTransform(1, 0, 0, 1, 0, 0);
+            // context2.rotate(90*Math.PI/180);
             context2.clearRect(0,0,my_canvas2.width,my_canvas2.height);
             context2.textAlign = "center";
-            context2.fillText("Hello there!",(markers[0].corners[3].x + markers[1].corners[3].x)/2 , markers[0].corners[3].y);
-            context2.fillText("This is a test.",(markers[0].corners[3].x + markers[1].corners[3].x)/2, markers[0].corners[3].y + 30);
-            context2.fillText("Let us see if it works",(markers[0].corners[3].x + markers[1].corners[3].x)/2, markers[0].corners[3].y + 60);
+            const rect_width = markers[0].corners[3].x - markers[1].corners[3].x;
+            const rect_height = markers[0].corners[3].y - markers[3].corners[3].y;
+            context2.fillRect(markers[0].corners[3].x,markers[0].corners[3].y,rect_width,rect_height); //to debug canvas transformation
+            // context2.fillText("Hello there!",(markers[0].corners[3].x + markers[1].corners[3].x)/2 , markers[0].corners[3].y);
+            // context2.fillText("This is a test.",(markers[0].corners[3].x + markers[1].corners[3].x)/2, markers[0].corners[3].y + 30);
+            // context2.fillText("Let us see if it works",(markers[0].corners[3].x + markers[1].corners[3].x)/2, markers[0].corners[3].y + 60);
           }
           window.onload = onLoad;
       </script>
